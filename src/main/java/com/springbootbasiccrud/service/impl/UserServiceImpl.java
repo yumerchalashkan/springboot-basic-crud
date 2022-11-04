@@ -2,9 +2,11 @@ package com.springbootbasiccrud.service.impl;
 
 import com.springbootbasiccrud.dto.UserDto;
 import com.springbootbasiccrud.entity.User;
+import com.springbootbasiccrud.exception.UserNotNullException;
 import com.springbootbasiccrud.repository.UserRepository;
 import com.springbootbasiccrud.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
         if(user.isPresent()){
             return modelMapper.map(user.get(), UserDto.class);
         }
-        return null;
+        throw new UserNotNullException("user is null");
     }
 
     @Override
@@ -68,5 +70,4 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
 }
